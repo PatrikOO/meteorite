@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Meteorite Landings"
+rootProject.name = "Meteorite"
 include(":app")
  
