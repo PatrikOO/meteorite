@@ -45,6 +45,9 @@ kotlinxSerializationJson = "1.5.0"
 ksp = "2.0.10-1.0.24"
 lint = "31.5.2"
 # @keep
+mapsCompose = "4.4.1"
+mapsComposeUtils = "4.4.1"
+mapsComposeWidgets = "4.4.1"
 minSdk = "21"
 okhttp = "4.10.0"
 protobuf = "3.21.12"
@@ -52,6 +55,7 @@ protobufPlugin = "0.8.19"
 retrofit = "2.11.0"
 retrofitKotlinxSerializationJson = "0.8.0"
 room = "2.6.1"
+secretsGradlePlugin = "2.0.1"
 spotless = "5.12.5"
 timber = "5.0.1"
 # @keep
@@ -132,10 +136,14 @@ kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-cor
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 lint-api = { group = "com.android.tools.lint", name = "lint-api", version.ref = "lint" }
+maps-compose = { module = "com.google.maps.android:maps-compose", version.ref = "mapsCompose" }
+maps-compose-utils = { module = "com.google.maps.android:maps-compose-utils", version.ref = "mapsComposeUtils" }
+maps-compose-widgets = { module = "com.google.maps.android:maps-compose-widgets", version.ref = "mapsComposeWidgets" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
+secrets-gradle-plugin = { module = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin", version.ref = "secretsGradlePlugin" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }

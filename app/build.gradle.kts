@@ -21,6 +21,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
     alias(libs.plugins.compose.compiler)
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -34,6 +35,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+
         testInstrumentationRunner = "com.patrik.meteorite.CustomTestRunner"
 
         javaCompileOptions {
@@ -43,12 +45,23 @@ android {
         }
     }
 
+    signingConfigs {
+        create("sign") {
+            storeFile = file("cert.jks")
+            storePassword = "meteorite"
+            keyAlias = "key0"
+            keyPassword = "meteorite"
+        }
+    }
+
     buildTypes {
         getByName("debug") {
+            isDebuggable = true
             isMinifyEnabled = false
             //isTestCoverageEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             testProguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguardTest-rules.pro")
+            signingConfig = signingConfigs.getByName("sign")
         }
 
         getByName("release") {
@@ -56,6 +69,7 @@ android {
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             testProguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguardTest-rules.pro")
+
         }
     }
 
@@ -101,11 +115,20 @@ android {
             freeCompilerArgs += "-opt-in=kotlin.Experimental"
         }
     }
+
+    secrets {
+        // Optionally specify a different file name containing your secrets.
+        // The plugin defaults to "local.properties"
+        propertiesFileName = "secrets.properties"
+
+        // A properties file containing default secret values. This file can be
+        // checked in version control.
+        defaultPropertiesFileName = "local.defaults.properties"
+    }
 }
 
 composeCompiler {
     enableStrongSkippingMode = true
-
     reportsDestination = layout.buildDirectory.dir("compose_compiler")
     stabilityConfigurationFile = rootProject.layout.projectDirectory.file("stability_config.conf")
 }
@@ -153,6 +176,11 @@ dependencies {
     implementation(libs.accompanist.swiperefresh)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+    implementation(libs.maps.compose)
+    // Google Maps Compose utility library
+    implementation(libs.maps.compose.utils)
+    // Google Maps Compose widgets library
+    implementation(libs.maps.compose.widgets)
 
     debugImplementation(composeBom)
     debugImplementation(libs.androidx.compose.ui.tooling.core)

@@ -26,7 +26,8 @@ object AppModule {
             context.applicationContext,
             MeteoriteDatabase::class.java,
             "Meteorite.db"
-        ).build()
+        ).fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides
