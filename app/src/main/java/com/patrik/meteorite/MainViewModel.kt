@@ -33,18 +33,18 @@ data class MeteoritesUiState(
 class MainViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val meteoriteRepository: MeteoriteRepository,
-    private val locationTracker: LocationTracker
+    //private val locationTracker: LocationTracker
 ) : ViewModel() {
 
     private val _isLoading = MutableStateFlow(false)
 
     var currentLocation by mutableStateOf<Location?>(null)
 
-    fun getCurrentLocation() {
-        viewModelScope.launch {
-            currentLocation = locationTracker.getCurrentLocation()
-        }
-    }
+//    fun getCurrentLocation() {
+//        viewModelScope.launch {
+//            currentLocation = locationTracker.getCurrentLocation()
+//        }
+//    }
 
 
 

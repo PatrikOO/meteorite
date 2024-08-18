@@ -58,13 +58,13 @@ object AppModule {
     ): FusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(application)
 
-    @Provides
-    @Singleton
-    fun providesLocationTracker(
-        fusedLocationProviderClient: FusedLocationProviderClient,
-        application: Application
-    ): LocationTracker = DefaultLocationTracker(
-        fusedLocationProviderClient = fusedLocationProviderClient,
-        application = application
-    )
+//    @Provides
+//    @Singleton
+//    fun providesLocationTracker(
+//        fusedLocationProviderClient: FusedLocationProviderClient,
+//        application: Application
+//    ): LocationTracker = DefaultLocationTracker(
+//        fusedLocationProviderClient = fusedLocationProviderClient,
+//        application = application
+//    )
 }
