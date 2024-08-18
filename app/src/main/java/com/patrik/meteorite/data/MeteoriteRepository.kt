@@ -9,6 +9,8 @@ import com.patrik.meteorite.di.DefaultDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -19,7 +21,7 @@ class MeteoriteRepository @Inject constructor(
     @ApplicationScope private val scope: CoroutineScope,
 ) {
 
-    fun observeAll(): Flow<List<Meteorite>> {
+    fun observeMeteorites(): Flow<List<Meteorite>> {
         return localDataSource.observeAll().map { meteorites ->
             meteorites.toExternal()
         }

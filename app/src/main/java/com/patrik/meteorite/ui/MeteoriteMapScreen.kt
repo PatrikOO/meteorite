@@ -2,6 +2,7 @@ package com.patrik.meteorite.ui
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -14,15 +15,23 @@ import com.patrik.meteorite.MainViewModel
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
-fun MeteoriteScreen(
+fun MeteoriteMapScreen(
     modifier: Modifier = Modifier,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
     viewModel: MainViewModel = hiltViewModel()
 ) {
     var isMapLoaded by remember { mutableStateOf(false) }
 
+    val screenViewState = viewModel.uiState.collectAsState()
+    val viewState = screenViewState.value
+
     GoogleMap(
         modifier = Modifier.fillMaxSize(),
         onMapLoaded = { isMapLoaded = true }
-    )
+    ) {
+
+        MeteoriteMarkers(
+            meteorites = viewState,
+        )
+    }
 }

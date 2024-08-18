@@ -9,4 +9,8 @@ data class Meteorite(
     val reclat: Double,
     val reclong: Double,
     val date: String,
-)
+) {
+
+    val mapTitle = "$name $date ${mass}g"
+    val listTitle = "$name $date"
+}
