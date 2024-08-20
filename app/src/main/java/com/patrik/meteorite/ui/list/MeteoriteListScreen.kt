@@ -1,37 +1,31 @@
-package com.patrik.meteorite.ui
+package com.patrik.meteorite.ui.list
 
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.google.maps.android.compose.GoogleMap
 import com.patrik.meteorite.MainViewModel
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
-fun MeteoriteMapScreen(
+fun MeteoriteListScreen(
     modifier: Modifier = Modifier,
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
     viewModel: MainViewModel = hiltViewModel()
 ) {
-    var isMapLoaded by remember { mutableStateOf(false) }
 
     val screenViewState = viewModel.uiState.collectAsState()
     val viewState = screenViewState.value
 
-    GoogleMap(
-        modifier = Modifier.fillMaxSize(),
-        onMapLoaded = { isMapLoaded = true }
-    ) {
-
-        MeteoriteMarkers(
-            meteorites = viewState,
-        )
+    LazyColumn(modifier = modifier.padding(vertical = 4.dp)) {
+        items(items = viewState, key = { viewState -> viewState.id }) { meteorite ->
+            MeteoriteListItem(meteorite.getTitle(), { }, modifier)
+        }
     }
+
 }

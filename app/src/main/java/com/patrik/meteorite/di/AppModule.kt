@@ -1,5 +1,7 @@
 package com.patrik.meteorite.di
 
+import DefaultLocationTracker
+import LocationTracker
 import android.app.Application
 import android.content.Context
 import androidx.room.Room

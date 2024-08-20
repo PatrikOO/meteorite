@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -13,8 +14,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.patrik.meteorite.ui.MeteoriteListScreen
-import com.patrik.meteorite.ui.MeteoriteMapScreen
+import com.patrik.meteorite.ui.list.MeteoriteListScreen
+import com.patrik.meteorite.ui.map.MeteoriteMapScreen
 import com.patrik.meteorite.ui.NavigationItem
 import com.patrik.meteorite.ui.theme.MeteoriteTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,23 +27,19 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MeteoriteTheme {
-                MainScreen()
+                val navController = rememberNavController()
+
+                Scaffold(
+                    bottomBar = { BottomNavigationBar(navController) },
+                    content = { padding ->
+                        Box(modifier = Modifier.padding(padding)) {
+                            Navigation(navController = navController)
+                        }
+                    },
+                )
             }
         }
     }
-}
-
-@Composable
-fun MainScreen() {
-    val navController = rememberNavController()
-    Scaffold(
-        bottomBar = { BottomNavigationBar(navController) },
-        content = { padding ->
-            Box(modifier = Modifier.padding(padding)) {
-                Navigation(navController = navController)
-            }
-        },
-    )
 }
 
 @Composable

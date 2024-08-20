@@ -7,6 +7,7 @@ import com.patrik.meteorite.data.Meteorite
 import com.patrik.meteorite.data.source.network.NetworkMeteorite
 import com.patrik.meteorite.util.toTimeDateLongOrNull
 import com.patrik.meteorite.util.toUiDate
+import kotlin.math.roundToInt
 
 @Entity(
     tableName = "meteorite"
@@ -36,7 +37,7 @@ fun List<LocalMeteorite>.toExternal() = map(LocalMeteorite::toExternal)
 
 fun NetworkMeteorite.toLocal() = LocalMeteorite(
     id = id!!.toInt(),
-    mass = mass?.toIntOrNull() ?: -1,
+    mass = mass?.toDoubleOrNull()?.roundToInt() ?: Int.MIN_VALUE,
     name = name ?: NO_DATA,
     recclass = recclass ?: NO_DATA,
     reclat = reclat!!.toDouble(),

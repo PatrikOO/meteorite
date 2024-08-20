@@ -1,6 +1,7 @@
 package com.patrik.meteorite.util
 
 import com.patrik.meteorite.AppConfig
+import java.math.RoundingMode
 
 fun String.toTimeDateLong(): Long {
     return try {
@@ -24,4 +25,14 @@ fun Long.toUiDate(): String {
     } catch (e: Exception) {
         "-"
     }
+
 }
+
+fun Int.asWeight(): String {
+    return if (this < 1000) {
+        "${this}g"
+    } else {
+        "${this.toBigDecimal().divide(1000.toBigDecimal(), 0, RoundingMode.HALF_UP)}kg"
+    }
+}
+

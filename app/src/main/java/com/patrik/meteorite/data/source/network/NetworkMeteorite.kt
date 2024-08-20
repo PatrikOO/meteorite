@@ -13,10 +13,13 @@ class NetworkMeteorite(
 ) {
 
 
-    fun isValid(): Boolean {
+    fun isValidAndAfterDate(date:Long): Boolean {
+       val meteoriteDate = year?.toTimeDateLongOrNull()
         return (id?.toIntOrNull() != null
                 && reclat?.toDoubleOrNull() != null
                 && reclong?.toDoubleOrNull() != null
-                && year?.toTimeDateLongOrNull() != null)
+                && meteoriteDate != null
+                && meteoriteDate >= date)
     }
+
 }

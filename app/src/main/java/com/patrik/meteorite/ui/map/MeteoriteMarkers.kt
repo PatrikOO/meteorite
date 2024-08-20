@@ -1,4 +1,4 @@
-package com.patrik.meteorite.ui
+package com.patrik.meteorite.ui.map
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -37,7 +37,7 @@ fun MeteoriteMarkers(
     meteorites.forEach { meteorite ->
         Marker(
             state = rememberMarkerState(position = LatLng(meteorite.reclat, meteorite.reclong)),
-            title = meteorite.mapTitle,
+            title = meteorite.getTitle(),
             anchor = Offset(0.5f, 0.5f),
             icon = meteoriteIcon,
             onClick = { marker ->

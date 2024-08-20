@@ -1,5 +1,6 @@
 package com.patrik.meteorite.data
 
+import com.patrik.meteorite.AppConfig
 import com.patrik.meteorite.data.source.local.MeteoriteDao
 import com.patrik.meteorite.data.source.local.toExternal
 import com.patrik.meteorite.data.source.local.toLocal
@@ -27,7 +28,7 @@ class MeteoriteRepository @Inject constructor(
 
     suspend fun refresh() {
         val networkMeteorites = networkDataSource.loadMeteorites()
-        val validMeteorites = networkMeteorites.filter { it.isValid() }
+        val validMeteorites = networkMeteorites.filter { it.isValidAndAfterDate(AppConfig.FROM_DATE) }
         localDataSource.deleteAll()
         localDataSource.upsertAll(validMeteorites.toLocal())
     }
