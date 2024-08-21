@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 interface MeteoriteDao {
 
     @Query("SELECT * FROM meteorite")
-    fun observeAll(): Flow<List<LocalMeteorite>>
+    fun observeAll(): List<LocalMeteorite>
 
     @Upsert
     suspend fun upsertAll(meteorites: List<LocalMeteorite>)

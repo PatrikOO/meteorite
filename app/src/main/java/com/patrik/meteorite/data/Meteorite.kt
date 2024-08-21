@@ -3,7 +3,6 @@ package com.patrik.meteorite.data
 import android.location.Location
 import com.patrik.meteorite.util.asWeight
 
-
 data class Meteorite(
     val id: Int,
     val mass: Int,
@@ -14,10 +13,10 @@ data class Meteorite(
     val date: String,
 ) {
 
-    var distance: Float = Float.MAX_VALUE
+    var distance: Int = Int.MAX_VALUE
 
     fun getTitle(): String{
-        return "$name $date ${mass.asWeight()}"
+        return "$name $date weight: ${mass.asWeight()} distance:${distance}km"
     }
 
     fun calculateDistance(currentLat: Double, currentLong: Double) {
@@ -28,9 +27,9 @@ data class Meteorite(
                 reclat, reclong,
                 currentLat, currentLong, results
             )
-            distance = results[0]
+            distance = (results[0] / 1000).toInt() // kilometers
         } catch (e: Exception) {
-            distance = Float.MAX_VALUE
+            distance = Int.MAX_VALUE
         }
     }
 }

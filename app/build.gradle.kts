@@ -178,10 +178,9 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.maps.compose)
-    // Google Maps Compose utility library
     implementation(libs.maps.compose.utils)
-    // Google Maps Compose widgets library
     implementation(libs.maps.compose.widgets)
+    implementation (libs.google.accompanist.permissions)
 
     debugImplementation(composeBom)
     debugImplementation(libs.androidx.compose.ui.tooling.core)

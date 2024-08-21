@@ -22,7 +22,6 @@ data class LocalMeteorite(
     val timestamp: Long?,
 )
 
-
 fun LocalMeteorite.toExternal() = Meteorite(
     id = id,
     mass = mass,

@@ -12,5 +12,5 @@ object AppConfig {
     val METEORITE_EXTERNAL_SDF = SimpleDateFormat(METEORITE_EXTERNAL_DATE_FORMAT, Locale.US)
 
     const val NO_DATA = "-"
-    const val FROM_DATE = 1293836400000L
+    const val FROM_DATE = 1293836400000L // 1.1.2011 00:00:00:000
 }

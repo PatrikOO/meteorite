@@ -1,6 +1,7 @@
 package com.patrik.meteorite.data
 
 import com.patrik.meteorite.AppConfig
+import com.patrik.meteorite.data.source.local.LocalMeteorite
 import com.patrik.meteorite.data.source.local.MeteoriteDao
 import com.patrik.meteorite.data.source.local.toExternal
 import com.patrik.meteorite.data.source.local.toLocal
@@ -9,8 +10,10 @@ import com.patrik.meteorite.di.ApplicationScope
 import com.patrik.meteorite.di.DefaultDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MeteoriteRepository @Inject constructor(
@@ -20,16 +23,22 @@ class MeteoriteRepository @Inject constructor(
     @ApplicationScope private val scope: CoroutineScope,
 ) {
 
-    fun observeMeteorites(): Flow<List<Meteorite>> {
-        return localDataSource.observeAll().map { meteorites ->
-            meteorites.toExternal()
-        }
-    }
+    private var loaded = false
+    private val _meteorites = MutableStateFlow(emptyList<Meteorite>())
+    val meteorites: StateFlow<List<Meteorite>> = _meteorites
 
-    suspend fun refresh() {
-        val networkMeteorites = networkDataSource.loadMeteorites()
-        val validMeteorites = networkMeteorites.filter { it.isValidAndAfterDate(AppConfig.FROM_DATE) }
-        localDataSource.deleteAll()
-        localDataSource.upsertAll(validMeteorites.toLocal())
+    suspend fun loadMeteorites() {
+        if (!loaded) {
+            loaded = true
+
+            val validMeteorites = networkDataSource.loadMeteorites().filter { it.isValidAndAfterDate(AppConfig.FROM_DATE) }
+            localDataSource.deleteAll()
+            localDataSource.upsertAll(validMeteorites.toLocal())
+            loaded = true
+        }
+
+        _meteorites.value = withContext(Dispatchers.IO) {
+            localDataSource.observeAll().toExternal()
+        }
     }
 }

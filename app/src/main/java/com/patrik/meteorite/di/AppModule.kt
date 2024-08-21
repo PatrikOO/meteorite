@@ -1,7 +1,5 @@
 package com.patrik.meteorite.di
 
-import DefaultLocationTracker
-import LocationTracker
 import android.app.Application
 import android.content.Context
 import androidx.room.Room
@@ -11,6 +9,8 @@ import com.patrik.meteorite.AppConfig
 import com.patrik.meteorite.api.ApiService
 import com.patrik.meteorite.data.source.local.MeteoriteDao
 import com.patrik.meteorite.data.source.local.MeteoriteDatabase
+import com.patrik.meteorite.util.DefaultLocationTracker
+import com.patrik.meteorite.util.LocationTracker
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -58,13 +58,13 @@ object AppModule {
     ): FusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(application)
 
-//    @Provides
-//    @Singleton
-//    fun providesLocationTracker(
-//        fusedLocationProviderClient: FusedLocationProviderClient,
-//        application: Application
-//    ): LocationTracker = DefaultLocationTracker(
-//        fusedLocationProviderClient = fusedLocationProviderClient,
-//        application = application
-//    )
+    @Provides
+    @Singleton
+    fun providesLocationTracker(
+        fusedLocationProviderClient: FusedLocationProviderClient,
+        application: Application
+    ): LocationTracker = DefaultLocationTracker(
+        fusedLocationProviderClient = fusedLocationProviderClient,
+        application = application
+    )
 }

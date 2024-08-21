@@ -12,7 +12,6 @@ class NetworkMeteorite(
     val year: String?
 ) {
 
-
     fun isValidAndAfterDate(date:Long): Boolean {
        val meteoriteDate = year?.toTimeDateLongOrNull()
         return (id?.toIntOrNull() != null
@@ -21,5 +20,4 @@ class NetworkMeteorite(
                 && meteoriteDate != null
                 && meteoriteDate >= date)
     }
-
 }

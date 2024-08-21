@@ -16,5 +16,4 @@ class MeteoriteNetworkDataSource @Inject constructor(
             throw ApiException("Get meteorites failed!", e)
         }
     }
-
 }
