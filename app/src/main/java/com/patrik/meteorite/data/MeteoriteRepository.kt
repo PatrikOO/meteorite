@@ -1,7 +1,6 @@
 package com.patrik.meteorite.data
 
 import com.patrik.meteorite.AppConfig
-import com.patrik.meteorite.data.source.local.LocalMeteorite
 import com.patrik.meteorite.data.source.local.MeteoriteDao
 import com.patrik.meteorite.data.source.local.toExternal
 import com.patrik.meteorite.data.source.local.toLocal

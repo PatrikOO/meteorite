@@ -13,6 +13,7 @@ import com.patrik.meteorite.util.LocationTracker
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -24,7 +25,7 @@ sealed class MeteoritesScreenViewState {
     data class MeteoritesList(
         val meteorites: List<Meteorite> = emptyList(),
         val location: Location? = null,
-        val message: String? = null
+        val message: Int? = null
     ) : MeteoritesScreenViewState()
 }
 
@@ -54,15 +55,17 @@ class MainViewModel @Inject constructor(
             } else {
                 MeteoritesScreenViewState.MeteoritesList(
                     meteorites = meteorites,
-                    location = currentLocation,
-                    message = ""
+                    location = currentLocation
                 )
             }
-        }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = MeteoritesScreenViewState.Loading
-        )
+        }.catch {
+            emit(MeteoritesScreenViewState.MeteoritesList(message = R.string.data_error))
+        }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000),
+                initialValue = MeteoritesScreenViewState.Loading
+            )
 
     init {
         viewModelScope.launch {
