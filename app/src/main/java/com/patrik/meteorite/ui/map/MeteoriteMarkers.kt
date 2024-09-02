@@ -21,7 +21,7 @@ import com.patrik.meteorite.util.vectorToBitmap
 @Composable
 @GoogleMapComposable
 fun MeteoriteMarkers(
-    meteorites: List<Meteorite>,
+    meteorites: List<Meteorite> = emptyList(),
     onMeteoriteClick: (Marker) -> Boolean = { false }
 ) {
 
